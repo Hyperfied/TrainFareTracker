@@ -63,7 +63,6 @@ class NationalRailScraper:
             soup = BeautifulSoup(self.browser.page_source, "html.parser")
             train_list = soup.find_all("section")[0].find("ul")
             if train_list is None:
-                print("No journeys found.")
                 return None
             if len(train_list) > 0:
                 break

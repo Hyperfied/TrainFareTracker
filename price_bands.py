@@ -45,10 +45,7 @@ def get_price_bands(origin_code: str, destination_code: str) -> dict:
 def get_fare_bracket(price_band: dict, price: float) -> list[float]:
     for fare in price_band:
         if price in price_band[fare]:
-            return fare
+            return price_band[fare]
     return []
 
-
-with open("Data/temp.json", "r") as f:
-    original_json = json.load(f)
 
