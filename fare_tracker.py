@@ -30,8 +30,11 @@ def get_tracked_trains() -> list[str]:
 
 
 def remove_train_from_tracker(index: int):
-    with open("Data/tracked_trains.json", "r") as f:
-        json_data: dict = json.load(f)
+    try:
+        with open("Data/tracked_trains.json", "r") as f:
+            json_data: dict = json.load(f)
+    except json.decoder.JSONDecodeError:
+        json_data = {}
     with open("Data/tracked_trains.json", "w") as f:
         try:
             key = [*json_data.keys()][index]
