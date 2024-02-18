@@ -21,8 +21,11 @@ def add_train_to_tracker(origin_code: str, destination_code: str, date: str):
 
 
 def get_tracked_trains() -> list[str]:
-    with open("Data/tracked_trains.json", "r") as f:
-        json_data: dict = json.load(f)
+    try:
+        with open("Data/tracked_trains.json", "r") as f:
+            json_data: dict = json.load(f)
+    except json.decoder.JSONDecodeError:
+        json_data = {}
     return [*json_data.keys()]
 
 
