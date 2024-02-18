@@ -39,8 +39,11 @@ def remove_train_from_tracker(index: int):
 def track_trains() -> list[str]:
     scraper = nrs.NationalRailScraper()
     notifs = []
-    with open("Data/tracked_trains.json", "r") as f:
-        json_data = json.load(f)
+    try:
+        with open("Data/tracked_trains.json", "r") as f:
+            json_data = json.load(f)
+    except json.decoder.JSONDecodeError:
+        json_data = {}
     for key in json_data:
         origin_code, destination_code, date = key.split("-")
         cheapest_ticket = scraper.find_cheapest_ticket_for_day(origin_code, destination_code, date, 1, None)
