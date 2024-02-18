@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from pathlib import Path
 
 with open("apikey.txt", "r") as f:
     apikey = f.read()
@@ -13,6 +14,7 @@ def get_api_request(origin_code: str, destination_code: str) -> dict:
 
 def write_bands_to_cache(json_dict: dict):
     filename = f"{json_dict['orig']['code']}-{json_dict['dest']['code']}"
+    Path("Data/RequestCache").mkdir(parents=True, exist_ok=True)
     with open(f"Data/RequestCache/{filename}.json", "w") as f:
         json.dump(json_dict, f, indent=4)
 
@@ -38,7 +40,6 @@ def get_price_bands(origin_code: str, destination_code: str) -> dict:
             return parse_bands_from_dict(json.load(f))
     else:
         request = get_api_request(origin_code, destination_code)
-        print(request)
         write_bands_to_cache(request)
         return parse_bands_from_dict(request)
 
