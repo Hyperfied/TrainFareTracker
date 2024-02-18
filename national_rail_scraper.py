@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 import time
 from enum import Enum
+
+import selenium.common.exceptions
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
@@ -49,7 +51,11 @@ class NationalRailScraper:
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
-        self.browser = webdriver.Chrome(options=options)
+        try:
+            self.browser = webdriver.Chrome(options=options)
+        except selenium.common.exceptions.NoSuchDriverException:
+            service = webdriver.ChromeService(r"usr/bin/chromedriver")
+            self.browser = webdriver.Chrome(options=options, service=service)
 
     def get_tickets(self, url) -> list[Ticket] | None:
         if not self.accepted_cookies:
