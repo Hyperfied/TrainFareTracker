@@ -54,7 +54,7 @@ class NationalRailScraper:
         try:
             self.browser = webdriver.Chrome(options=options)
         except selenium.common.exceptions.NoSuchDriverException:
-            service = webdriver.ChromeService(r"usr/bin/chromedriver")
+            service = webdriver.ChromeService(r"/usr/bin/chromedriver")
             self.browser = webdriver.Chrome(options=options, service=service)
 
     def get_tickets(self, url) -> list[Ticket] | None:
