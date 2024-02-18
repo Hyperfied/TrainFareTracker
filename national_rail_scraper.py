@@ -50,7 +50,7 @@ class NationalRailScraper:
 
     def __init__(self):
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
+        #options.add_argument("--headless")
         try:
             self.browser = webdriver.Chrome(options=options)
         except selenium.common.exceptions.NoSuchDriverException:
