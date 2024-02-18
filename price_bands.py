@@ -38,6 +38,7 @@ def get_price_bands(origin_code: str, destination_code: str) -> dict:
             return parse_bands_from_dict(json.load(f))
     else:
         request = get_api_request(origin_code, destination_code)
+        print(request)
         write_bands_to_cache(request)
         return parse_bands_from_dict(request)
 
