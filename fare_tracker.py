@@ -29,7 +29,7 @@ def track_trains(hours: int = 1):
             cheapest_ticket = scraper.find_cheapest_ticket_for_day(origin_code, destination_code, date, 1, None)
 
             if cheapest_ticket is None:
-                # Ticket's aren't released yet
+                # Tickets aren't released yet
                 print("Tickets aren't released yet.")
                 continue
 

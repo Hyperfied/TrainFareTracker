@@ -108,7 +108,7 @@ class NationalRailScraper:
 
     def accept_cookies(self):
         self.browser.get("https://www.nationalrail.co.uk/")
-        time.sleep(0.5)
+        time.sleep(5)
         self.browser.find_element(By.ID, 'onetrust-accept-btn-handler').click()
         self.accepted_cookies = True
 
@@ -122,7 +122,10 @@ class NationalRailScraper:
         while not found_all_tickets:
             current_tickets = self.get_tickets(url)
             if current_tickets is None:
-                return None
+                if len(tickets) == 0:
+                    return None
+                else:
+                    break
 
             hour = str(current_tickets[-1].departure_time.hour)
             minute = str(15 * round(current_tickets[-1].departure_time.minute / 15))
