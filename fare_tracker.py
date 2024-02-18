@@ -6,8 +6,11 @@ import national_rail_scraper as nrs
 
 
 def add_train_to_tracker(origin_code: str, destination_code: str, date: str):
-    with open("Data/tracked_trains.json", "r") as f:
-        json_data = json.load(f)
+    try:
+        with open("Data/tracked_trains.json", "r") as f:
+            json_data = json.load(f)
+    except json.decoder.JSONDecodeError:
+        json_data = {}
     with open("Data/tracked_trains.json", "w") as f:
         key = f"{origin_code}-{destination_code}-{date}"
         if key in json_data:
